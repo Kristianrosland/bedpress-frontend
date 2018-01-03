@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onReset: () => {
       dispatch(reset())
-    }
+    },
   }
 }
 
