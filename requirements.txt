@@ -17,6 +17,8 @@ Som student vil jeg kunne..
   -	Få tidsstraff dersom jeg ikke melder meg av i tide.
 
 Som medlem i Fagutvalget/Bedriftskomitéen vil jeg kunne..
+  - Logge inn i et backoffice
+  - Se kommende og ferdige bedriftspresentasjoner
   -	Legge ut påmelding til et arrangement
       o	Legge inn navn på arrangementet
       o	Legge inn beskrivelse
