@@ -1,0 +1,39 @@
+Som student vil jeg kunne..
+  -	Melde meg på arrangementer i regi av Fagutvalget
+  -	Logge inn / registrere bruker
+  -	På enkeltpresentasjoner:
+      o	Se hvem påmeldingen er åpen for
+      o	Se hvor mange plasser det er totalt
+      o	Se hvor mange plasser det er igjen
+      o	Se hvor arrangementet vil være
+      o	Se når påmeldingen starter
+  -	Se en oversikt over kommende bedriftspresentasjoner
+  -	Melde meg av igjen
+  -	Få bekreftelse på at jeg har meldt meg på
+  -	Sette meg opp på venteliste dersom det er fullt
+      o	Potensielt med en calendar-event fil
+  -	Se hvilken plass jeg ligger på ventelisten
+  -	Bli automatisk flyttet opp fra ventelisten, og bli varslet på mail
+  -	Få tidsstraff dersom jeg ikke melder meg av i tide.
+
+Som medlem i Fagutvalget/Bedriftskomitéen vil jeg kunne..
+  -	Legge ut påmelding til et arrangement
+      o	Legge inn navn på arrangementet
+      o	Legge inn beskrivelse
+      o	Legge inn tid og sted
+      o	Legge inn hvem det er åpent for
+      o	Legge inn antall plasser
+      o	Legge inn bilde/logo
+      o	Legge inn avmeldingsfrist (eller default)
+      o	Legge inn når påmeldingen starter (eller default)
+      o	Endre informasjon senere
+  -	Se en oversikt og hente ut epostliste over påmeldte deltakere
+  -	Legge inn custom mailtekst hvis ønskelig
+  -	Fjerne deltakere
+  -	Fjerne pending ventelistedeltakere
+  -	Etter arrangementet
+      o	Legge inn hvem som ikke var til stede
+
+
+Inspo:
+http://nu.nhhs.no/aktiviteter
