@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
 import firebase from 'firebase';
 import { Route } from 'react-router-dom'
 import { authSuccess, authFail } from '../actions';
+import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
+import './App.css';
 
 class App extends Component {
   componentWillMount() {
@@ -21,7 +22,7 @@ class App extends Component {
 
   render() {
     const loading = this.props.loading ? <p> Loading.. </p> : null;
-    const mainComponent = this.props.user ? <p> { this.props.user.displayName } </p> : null;
+    const main = this.props.user ? <Main /> : null;
     const loginScreen = <LoginScreen />
 
     return (
@@ -30,7 +31,7 @@ class App extends Component {
           <div className='content-wrapper'>
             { loading }
             <Route path="/login" component={ () => loginScreen } />
-            <Route exact path="/" component={() => mainComponent } />
+            <Route exact path="/" component={ () => main } />
           </div>
         <Footer />
       </div>
