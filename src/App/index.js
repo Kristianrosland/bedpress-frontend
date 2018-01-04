@@ -6,20 +6,17 @@ import firebase from 'firebase';
 import firebaseui from 'firebaseui';
 
 class App extends Component {
-
   componentWillMount() {
-    const that = this;
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          that.props.dispatch({ type: 'LOGGED_IN', user: user })
+          this.props.dispatch({ type: 'LOGGED_IN', user: user })
         } else {
-          that.props.dispatch({ type: 'NO_AUTH' }) //Signal that the user is not authenticated
+          this.props.dispatch({ type: 'NO_AUTH' }) //Signal that the user is not authenticated
         }
     });
   }
 
   render() {
-    const that = this;
     const uiConfig = {
       signInFlow: 'redirect',
       signInSuccessUrl: '/',
