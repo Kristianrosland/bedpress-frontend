@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { db } from '../../utils/firebase';
+import { RingLoader } from 'react-spinners';
+import { fetchEvents } from '../../actions';
 
 class Main extends Component {
-  render() {
+  componentWillMount() {
+    this.props.fetchEvents();
+  }
 
-    // print companies
-    db.collection("presentations").get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.data().company);
-        });
-      })
+  render() {
+    const eventList = this.props.events
+      ? this.props.events.map(e => <p> {e.company} </p>)
+      : null;
 
     return (
       <div>
-        <p> YES </p>
+        <RingLoader loading={ this.props.isFetching } />
+        { eventList }
       </div>
     );
   }
@@ -23,11 +24,14 @@ class Main extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchEvents: () => dispatch(fetchEvents())
   }
 }
 
 const mapStateToProps = state => {
   return {
+    isFetching: state.events.isFetching,
+    events: state.events.events,
   }
 }
 
