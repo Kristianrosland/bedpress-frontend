@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { db } from '../../index';
+import { db } from '../../utils/firebase';
 
 class Main extends Component {
   render() {
