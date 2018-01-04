@@ -1,45 +1,56 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
+import firebaseui from 'firebaseui';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { singedIn: false };
+
+  componentWillMount() {
+    const that = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          that.props.dispatch({ type: 'LOGGED_IN', user: user })
+        }
+    });
   }
 
   render() {
+    const that = this;
     const uiConfig = {
-      // signInFlow: 'redirect',
-      // signInSuccessUrl: '/signIn',
+      signInFlow: 'redirect',
+      signInSuccessUrl: '/',
       signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
       tosUrl: 'www.fagutvalget.no',
-      credentialHelper: 'firebaseui.auth.CredentialHelper.NONE',
-      callbacks: {
-        signInSuccess: () => {
-          this.setState({ signedIn: true });
-          return true; // Avoid redirects after sign-in.
-        }
-      }
+      credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
     };
-
-    console.log(this.state.signedIn);
 
     return (
       <div>
-      {
-        !this.state.singedIn &&
-          <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      }
-      {
-        this.state.singedIn &&
-          <p> YES </p>
-      }
+        {
+          !this.props.user &&
+            <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        }
+        {
+          this.props.user && <p> { this.props.user.displayName } </p>
+        }
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch: dispatch,
+  }
+}
+
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    user: state.auth.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
