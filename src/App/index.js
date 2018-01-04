@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
-import firebaseui from 'firebaseui';
+import { Route } from 'react-router-dom'
 import { authSuccess, authFail } from '../actions';
 import './App.css';
 import Main from './Main';
+import Header from './Header';
+import Footer from './Footer';
+import LoginScreen from './LoginScreen';
 
 class App extends Component {
   componentWillMount() {
@@ -13,31 +16,23 @@ class App extends Component {
         if (user) {
           this.props.authSuccess(user);
         } else {
-          this.props.authFail(); //Signal that the user is not authenticated
+          this.props.authFail();
         }
     });
   }
 
   render() {
-    const uiConfig = {
-      signInFlow: 'redirect',
-      signInSuccessUrl: '/',
-      signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
-      tosUrl: 'www.fagutvalget.no',
-      credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
-    };
-
     const loading = this.props.loading ? <p> Loading.. </p> : null;
     const main = this.props.user ? <Main /> : null;
-    const loginScreen = !this.props.user && !this.props.loading
-      ? <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      : null;
+    const loginScreen = <LoginScreen />
 
     return (
-      <div>
+      <div className='wrapper'>
+        <Header />
         { loading }
-        { main }
-        { loginScreen }
+        <Route path="/login" component={ () => loginScreen } />
+        <Route exact path="/" component={() => main } />
+        <Footer />
       </div>
     );
   }
