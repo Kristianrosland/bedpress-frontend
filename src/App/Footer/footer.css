@@ -1,0 +1,12 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  color: rgba(255,255,255,0.8);
+}
+
+.footer-row {
+  height: 15px;
+  margin-top: 5px;
+}

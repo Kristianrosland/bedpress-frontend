@@ -8,7 +8,6 @@ import Header from './Header';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
 
-
 class App extends Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
@@ -28,9 +27,11 @@ class App extends Component {
     return (
       <div className='wrapper'>
         <Header />
-        { loading }
-        <Route path="/login" component={ () => loginScreen } />
-        <Route exact path="/" component={() => mainComponent } />
+          <div className='content-wrapper'>
+            { loading }
+            <Route path="/login" component={ () => loginScreen } />
+            <Route exact path="/" component={() => mainComponent } />
+          </div>
         <Footer />
       </div>
     );
