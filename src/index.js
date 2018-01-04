@@ -10,7 +10,6 @@ import reducers from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import firebase from 'firebase/app';
 
-
 var config = {
   apiKey: "AIzaSyDiKrfHJq-FYHoHE13jPtMCbWs1N2hKDCg",
   authDomain: "bedpress-backend.firebaseapp.com",
