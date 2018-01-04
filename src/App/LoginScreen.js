@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
-import firebaseui from 'firebaseui';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { uiConfig } from '../utils/firebase';

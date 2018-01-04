@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import firebaseui from 'firebaseui';
 require('firebase/firestore')
 
 export const uiConfig = {

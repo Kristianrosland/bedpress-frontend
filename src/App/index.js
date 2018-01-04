@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
 import { Route } from 'react-router-dom'
 import { authSuccess, authFail } from '../actions';
@@ -31,7 +30,7 @@ class App extends Component {
         <Header />
         { loading }
         <Route path="/login" component={ () => loginScreen } />
-        <Route exact path="/" component={() => main } />
+        <Route exact path="/" component={ () => main } />
         <Footer />
       </div>
     );
