@@ -1,12 +1,14 @@
+import { Actions } from '../utils/constants';
+
 export default function authReducer(state = { loadingUser: true }, action) {
   switch(action.type) {
-    case 'LOGGED_IN':
+    case Actions.AUTH_SUCCESS:
       return {
         ...state,
         user: action.user,
         loadingUser: false,
       };
-    case 'NO_AUTH':
+    case Actions.AUTH_FAIL:
       return {
         ...state,
         user: undefined,
