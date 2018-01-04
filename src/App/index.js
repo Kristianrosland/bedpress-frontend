@@ -4,7 +4,10 @@ import './App.css';
 import firebase from 'firebase';
 import { Route } from 'react-router-dom'
 import { authSuccess, authFail } from '../actions';
+import Header from './Header';
+import Footer from './Footer';
 import LoginScreen from './LoginScreen';
+
 
 class App extends Component {
   componentWillMount() {
@@ -23,10 +26,12 @@ class App extends Component {
     const loginScreen = <LoginScreen />
 
     return (
-      <div>
+      <div className='wrapper'>
+        <Header />
         { loading }
         <Route path="/login" component={ () => loginScreen } />
         <Route exact path="/" component={() => mainComponent } />
+        <Footer />
       </div>
     );
   }
