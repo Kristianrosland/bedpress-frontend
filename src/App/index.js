@@ -28,9 +28,11 @@ class App extends Component {
     return (
       <div className='wrapper'>
         <Header />
-        { loading }
-        <Route path="/login" component={ () => loginScreen } />
-        <Route exact path="/" component={ () => main } />
+          <div className='content-wrapper'>
+            { loading }
+            <Route path="/login" component={ () => loginScreen } />
+            <Route exact path="/" component={() => mainComponent } />
+          </div>
         <Footer />
       </div>
     );
