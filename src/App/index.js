@@ -4,14 +4,15 @@ import './App.css';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebase from 'firebase';
 import firebaseui from 'firebaseui';
+import { authSuccess, authFail } from '../actions';
 
 class App extends Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          this.props.dispatch({ type: 'LOGGED_IN', user: user })
+          this.props.authSuccess(user);
         } else {
-          this.props.dispatch({ type: 'NO_AUTH' }) //Signal that the user is not authenticated
+          this.props.authFail(); //Signal that the user is not authenticated
         }
     });
   }
@@ -43,7 +44,8 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatch: dispatch,
+    authSuccess: user => dispatch(authSuccess(user)),
+    authFail: () => dispatch(authFail())
   }
 }
 
