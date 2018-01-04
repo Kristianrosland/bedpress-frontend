@@ -8,7 +8,9 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import firebase from 'firebase/app';
+require('firebase/firestore')
 
+// TODO: Move all firebase config to firebase.js
 var config = {
   apiKey: "AIzaSyDiKrfHJq-FYHoHE13jPtMCbWs1N2hKDCg",
   authDomain: "bedpress-backend.firebaseapp.com",
@@ -18,6 +20,7 @@ var config = {
   messagingSenderId: "777181904263"
 };
 firebase.initializeApp(config);
+export const db = firebase.firestore();
 
 const store = createStore(reducers, undefined, applyMiddleware(thunkMiddleware));
 
