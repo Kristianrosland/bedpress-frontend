@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RingLoader } from 'react-spinners';
+//https://www.npmjs.com/package/react-spinners <-- Different spinners 
+import { BarLoader } from 'react-spinners';
 import { fetchEvents } from '../../actions';
+import EventCard from './EventCard';
+import './Main.css';
 
 class Main extends Component {
   componentWillMount() {
@@ -10,12 +13,14 @@ class Main extends Component {
 
   render() {
     const eventList = this.props.events
-      ? this.props.events.map(e => <p> {e.company} </p>)
+      ? this.props.events.map(e => <EventCard key={e.company} event={e} />)
       : null;
 
     return (
       <div>
-        <RingLoader loading={ this.props.isFetching } />
+        <div className='spinner'>
+          <BarLoader loading={ this.props.isFetching } />
+        </div>
         { eventList }
       </div>
     );
