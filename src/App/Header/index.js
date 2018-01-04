@@ -7,10 +7,11 @@ import './header.css';
 class Header extends Component {
   render() {
     const route = this.props.isAuthenticated ? 'myProfile' : 'login';
+    const text = this.props.isAuthenticated ? 'MIN PROFIL' : 'LOGG INN';
     const myProfileButton = (
       <HeaderButton
         icon='user'
-        text='MIN PROFIL'
+        text={text}
         route={route} />);
 
     const Logo = withRouter(({ history }) => (
