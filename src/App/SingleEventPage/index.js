@@ -16,7 +16,7 @@ class SingleEventPage extends Component {
     const eventInfo = event
       ? <div> { event.company } </div>
       : null;
-      
+
     const spinner = !eventInfo
     ? <div className='spinner'> <BarLoader loading={ this.props.isFetching } /> </div>
     : null;
