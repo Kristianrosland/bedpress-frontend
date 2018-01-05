@@ -20,7 +20,11 @@ export function fetchEvents() {
 
     db.collection("presentations").get()
       .then((querySnapshot) => {
-        var events = querySnapshot.docs.map(doc => doc.data());
+        var events = querySnapshot.docs.map(doc => {
+          const event = doc.data()
+          event.id = doc.id;
+          return event;
+        });
         dispatch(fetchSuccess(events));
       }).catch((error) => {
         dispatch(fetchFail())
