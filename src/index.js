@@ -14,7 +14,7 @@ const store = createStore(reducers, undefined, applyMiddleware(thunkMiddleware))
 const MyApp = () => (
   <Provider store={store}>
     <Router>
-      <Route path="/:filter?" component={App} />
+      <Route path="/" component={App} />
     </Router>
   </Provider>
 );

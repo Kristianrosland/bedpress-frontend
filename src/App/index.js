@@ -7,6 +7,7 @@ import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
+import SingleEventPage from './SingleEventPage';
 import './App.css';
 
 class App extends Component {
@@ -21,19 +22,15 @@ class App extends Component {
   }
 
   render() {
-    const loading = this.props.loading ? <p> Loading.. </p> : null;
-    const main = this.props.user ? <Main /> : null;
-    const loginScreen = <LoginScreen />
-
     return (
       <div className='wrapper'>
         <Header isAuthenticated={ this.props.user !== undefined } />
-          <div className='content-wrapper'>
-            { loading }
-            <Route path="/login" component={ () => loginScreen } />
-            <Route exact path="/" component={ () => main } />
-          </div>
-        <Footer />
+        <div className='content-wrapper'>
+          <Route path="/login" component={ LoginScreen} />
+          <Route exact path="/" component={ Main } />
+          <Route path="/event/:id?" component={ SingleEventPage } />
+        </div>
+        <Footer/>
       </div>
     );
   }
