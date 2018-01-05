@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className='wrapper'>
-        <Header />
+        <Header isAuthenticated={ this.props.user !== undefined } />
         <div className='content-wrapper'>
           <Route path="/login" component={ LoginScreen} />
           <Route exact path="/" component={ Main } />
