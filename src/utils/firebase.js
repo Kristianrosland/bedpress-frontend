@@ -1,14 +1,5 @@
 import firebase from 'firebase/app';
-import firebaseui from 'firebaseui';
 require('firebase/firestore')
-
-export const uiConfig = {
-  signInFlow: 'redirect',
-  signInSuccessUrl: '/',
-  tosUrl: 'www.fagutvalget.no',
-  signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
-  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
-};
 
 var config = {
   apiKey: "AIzaSyDiKrfHJq-FYHoHE13jPtMCbWs1N2hKDCg",
