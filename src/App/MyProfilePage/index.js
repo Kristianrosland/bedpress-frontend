@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AllergyInputField from './AllergyInputField';
 
 class MyProfilePage extends Component {
   render() {
-    const newUser = this.props.newUser ? <p> New user! </p> : null;
-    
+    const newUser = this.props.newUser ? <p> {'Welcome new user!'} </p> : null;
+
     return (
       <div>
+        <AllergyInputField />
         { newUser }
-        MY PROFILE
       </div>
     )
   }
