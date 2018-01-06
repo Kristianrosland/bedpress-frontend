@@ -8,7 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
 import SingleEventPage from './SingleEventPage';
-import NewUserPage from './NewUserPage';
+import MyProfilePage from './MyProfilePage';
 import './App.css';
 
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/login" component={ LoginScreen} />
           <Route exact path="/" component={ Main } />
           <Route path="/event/:id?" component={ SingleEventPage } />
-          <Route path="/newUser" component={  }
+          <Route path="/myProfile" component={ MyProfilePage } />
         </div>
         <Footer/>
       </div>

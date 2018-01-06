@@ -25,10 +25,10 @@ class LoginScreen extends Component {
         },
     };
 
-    const redirect = !this.props.newUser ? <Redirect to='/' /> : <Redirect to='/newUser'/>;
-    const authComponent = !this.props.user
+    const redirect = this.props.newUser ? <Redirect to='/myProfile' /> : <Redirect to='/'/>;
+    const authComponent = !this.props.newUser && !this.props.user
       ? <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      : <Redirect to='/' />;
+      : redirect;
 
     return (
       <div>
