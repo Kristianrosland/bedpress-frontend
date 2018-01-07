@@ -1,0 +1,70 @@
+.react-autosuggest__input {
+  width: 100%;
+  height: 36px;
+  margin-top: 10px;
+  font-size: 15px;
+  padding-left: 10px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.react-autosuggest__container {
+  width: 100%;
+}
+
+.react-autosuggest__container ul {
+  list-style: none;
+  padding: 0;
+  -webkit-margin-before: 0em;
+  background-color: white;
+}
+
+.react-autosuggest__suggestion {
+  border: 1px solid #ccc;
+  border-top: 0px;
+  cursor: pointer;
+  color: rgba(51, 51, 51, 0.8);
+}
+
+.suggestion {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.highlight {
+  background-color: rgba(51,73,92,0.2);
+}
+
+/* ALLERGY TAGS */
+.tag-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  cursor: pointer;
+}
+
+.allergy-tag {
+  background-color: #33495C; /*BLÅ*/
+  background-color: rgba(247,186,61,1); /*ORANSJE*/
+  color: white;
+  margin: 0;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tag-remove-icon {
+  margin-left: 5px;
+}

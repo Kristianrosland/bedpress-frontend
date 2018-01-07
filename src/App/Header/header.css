@@ -1,6 +1,6 @@
 .header {
   color: rgba(255,255,255,0.8);
-  height: 60px;
+  height: 35px;
   padding: 8px;
   padding-right: 30px;
   display: flex;
@@ -22,7 +22,7 @@
   align-items: center;
   width: auto;
   height: 100%;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -31,6 +31,6 @@ div.header-button:hover {
 }
 
 .header-button-icon {
-  font-size: 26px;
+  font-size: 22px;
   margin-right: 8px;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//https://www.npmjs.com/package/react-spinners <-- Different spinners 
+//https://www.npmjs.com/package/react-spinners <-- Different spinners
 import { BarLoader } from 'react-spinners';
 import { fetchEvents } from '../../actions';
 import EventCard from './EventCard';

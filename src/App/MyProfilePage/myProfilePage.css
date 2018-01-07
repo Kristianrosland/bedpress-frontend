@@ -1,0 +1,45 @@
+.outer-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 400px;
+  border: 0px solid #ccc;
+  border-radius: 2px;
+  padding: 5% 10% 7% 10%;
+  box-shadow: 4px 4px 2px rgba(0,0,0,0.3);
+  background-color: #33495C; /*BLÅ*/
+  color:white;
+}
+
+.display-name {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.email {
+  color: rgba(255,255,255,0.80);
+  font-size: 18px;
+  margin-bottom: 60px;
+}
+
+.dropdown-container {
+  margin-top: 10px;
+}
+
+.save-button {
+  width: 100%;
+  height: 50px;
+  color: white;
+  background-color: rgba(255,193,64,1); /*ORANSJE*/
+  margin: 0;
+  margin-top: 60px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 1px;
+  border: 1px solid orange;
+  cursor: pointer;
+}
