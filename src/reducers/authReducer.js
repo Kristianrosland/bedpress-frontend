@@ -25,13 +25,17 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         newUserSignIn: true,
+        isAuthenticated: true,
         userFetched: false,
+        userInfo: action.userInfo,
       }
     case Actions.FETCH_USER_SUCCESS:
       return {
         ...state,
         newUserSignIn: false,
+        isAuthenticated: true,
         userFetched: true,
+        userInfo: action.userInfo,
       }
 
     default:

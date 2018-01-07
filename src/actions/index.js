@@ -21,7 +21,7 @@ export function fetchUser(user) {
     db.collection("users").doc(uid).get()
       .then(fetchedUser => {
         if (fetchedUser.exists) {
-          dispatch(fetchUserSuccess());
+          dispatch(fetchUserSuccess(fetchedUser.data()));
         } else {
           dispatch(newUserSignIn(user));
         }
@@ -33,22 +33,24 @@ export function fetchUser(user) {
 
 export function newUserSignIn(user) {
   return function(dispatch) {
-    dispatch(newUser());
-
-    db.collection("users").doc(user.uid).set({
-      name: user.displayName,
+    const userInfo = {
+      name: user.displaName,
       email: user.email,
-    })
-    .then(() => {
-      console.log("New user written to database");
-    })
-    .catch( error => console.log("Error writing new user, " + error));
+    };
+    dispatch(newUser(userInfo));
+
+    db.collection("users").doc(user.uid).set(userInfo)
+      .then(() => {
+        console.log("New user written to database");
+      })
+      .catch( error => console.log("Error writing new user, " + error));
   }
 }
 
-export function newUser() {
+export function newUser(userInfo) {
   return {
     type: Actions.NEW_USER_SIGN_IN,
+    userInfo: userInfo,
   }
 }
 
@@ -58,9 +60,10 @@ export function fetchUserStart() {
   }
 }
 
-export function fetchUserSuccess() {
+export function fetchUserSuccess(userInfo) {
   return {
     type: Actions.FETCH_USER_SUCCESS,
+    userInfo: userInfo,
   }
 }
 
