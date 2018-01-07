@@ -9,4 +9,5 @@
 .content-wrapper {
   padding: 5%;
   background-color: white;
+  min-height: 500px;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
+import './allergyInput.css';
 
 const allergies = [
   { name: 'Gluten' },
@@ -17,19 +18,11 @@ const getSuggestions = value => {
 
   return inputLength === 0 ? [] : allergies.filter(allergy =>
     allergy.name.toLowerCase().slice(0, inputLength) === inputValue
+    && value !== allergy.name
   );
 };
 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
 const getSuggestionValue = suggestion => suggestion.name;
-
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.name}
-  </div>
-);
 
 class AllergyInputField extends Component {
   constructor(props) {
@@ -58,6 +51,11 @@ class AllergyInputField extends Component {
     });
   };
 
+  renderSuggestion = (suggestion, { isHighlighted }) => {
+    const cls = isHighlighted ? 'suggestion highlight' : 'suggestion';
+    return <div className={cls}> {suggestion.name} </div>;
+  };
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -75,9 +73,8 @@ class AllergyInputField extends Component {
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
+        renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
-        alwaysRenderSuggestions={true}
       />
     );
   }
