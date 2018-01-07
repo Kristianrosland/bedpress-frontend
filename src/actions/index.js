@@ -119,3 +119,13 @@ export function updateAllergies(allergies, uid) {
     ).catch( error => console.log("Error updating allergies, ", allergies));
   }
 }
+
+export function updateProgramAndYear(program, year, uid) {
+  return function(dispatch) {
+    db.collection("users").doc(uid).update({
+      year: year,
+      studyProgram: program,
+    }).then( () => console.log("Updated program and year", program, year))
+    .catch( error => console.log("Error updating program and year"));
+  }
+}

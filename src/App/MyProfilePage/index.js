@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 /* import { Redirect } from 'react-router'; */
 import firebase from 'firebase';
-import { fetchUser, updateAllergies, receivedUserInfo } from '../../actions';
+import { fetchUser, updateAllergies, receivedUserInfo, updateProgramAndYear } from '../../actions';
 import AllergyInputField from './AllergyInputField';
 import StudyProgramDropdown from './StudyProgramDropdown';
 import YearDropdown from './YearDropdown';
@@ -21,10 +21,9 @@ class MyProfilePage extends Component {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
           this.props.fetchUser(user);
-          db.collection("users").doc(user.uid)
-            .onSnapshot(doc => {
-              this.props.receivedUserInfo(doc.data())
-            });
+          db.collection("users").doc(user.uid).onSnapshot(doc => {
+            this.props.receivedUserInfo(doc.data())
+          });
         } else {
           this.props.authFail();
         }
@@ -35,14 +34,25 @@ class MyProfilePage extends Component {
     if (!this.props.userInfo || !firebase.auth().currentUser) {
       return <div className='outer-container'><BarLoader /></div>
     }
+    const uid = firebase.auth().currentUser.uid
+    const submitProgramAndYearUpdate = () => {
+      var program = this.state.program;
+      var year = this.state.year;
+      if (!program) { program = this.props.userInfo.studyProgram; }
+      if (!year) { year = this.props.userInfo.studyProgram; }
+      if (program && year) {
+        this.props.updateStudyProgramAndYear(program, year, uid);
+      }
+    }
 
     const name = this.props.userInfo.name;
     const email = this.props.userInfo.email;
     const program = this.state.program ? this.state.program : this.props.userInfo.studyProgram;
     const year = this.state.year ? this.state.year : this.props.userInfo.year;
     const allergies = this.props.userInfo.allergies ? this.props.userInfo.allergies : [];
-    const saveButton = <button className='save-button'> Lagre innstillinger </button>;
-    const uid = firebase.auth().currentUser.uid
+    const saveButton = <button className='save-button'
+                          onClick={ submitProgramAndYearUpdate }>
+                          Lagre innstillinger </button>;
 
     return (
       <div className='outer-container'>
@@ -85,6 +95,9 @@ const mapDispatchToProps = dispatch => {
     fetchUser: user => dispatch(fetchUser(user)),
     receivedUserInfo: user => dispatch(receivedUserInfo(user)),
     updateAllergies: (allergies, uid) => dispatch(updateAllergies(allergies, uid)),
+    updateStudyProgramAndYear: (program, year, uid) => {
+      dispatch(updateProgramAndYear(program, year, uid));
+    }
   }
 }
 
