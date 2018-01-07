@@ -38,3 +38,30 @@
 .highlight {
   background-color: #f2f9fc;
 }
+
+/* ALLERGY TAGS */
+.tag-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  cursor: pointer;
+}
+
+.allergy-tag {
+  background-color: #33495C;
+  color: white;
+  margin: 0;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tag-remove-icon {
+  margin-left: 5px;
+}

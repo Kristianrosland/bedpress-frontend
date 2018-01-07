@@ -3,18 +3,23 @@ import { connect } from 'react-redux';
 import AllergyInputField from './AllergyInputField';
 import StudyProgramDropdown from './StudyProgramDropdown';
 import YearDropdown from './YearDropdown';
+import AllergyTags from './AllergyTags';
 import './myProfilePage.css';
 
 class MyProfilePage extends Component {
   render() {
     const newUser = this.props.newUser ? <p> {'Welcome new user!'} </p> : null;
+    const allergies = [ 'Gluten', 'Vegetarianer', 'Pesketarianer' ]
+    const saveButton = <button className='save-button'> Lagre </button>;
 
     return (
       <div className="container">
+        { newUser }
         <StudyProgramDropdown />
         <YearDropdown />
         <AllergyInputField />
-        { newUser }
+        <AllergyTags allergies={allergies}/>
+        { saveButton }
       </div>
     )
   }
