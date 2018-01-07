@@ -17,6 +17,7 @@
   list-style: none;
   padding: 0;
   -webkit-margin-before: 0em;
+  background-color: white;
 }
 
 .react-autosuggest__suggestion {
@@ -30,6 +31,7 @@
   padding: 10px;
   height: 100%;
   width: 100%;
+  background-color: white;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
@@ -49,8 +51,8 @@
 }
 
 .allergy-tag {
-  background-color: rgba(255,193,64,1);
   background-color: #33495C; /*BLÅ*/
+  background-color: rgba(247,186,61,1); /*ORANSJE*/
   color: white;
   margin: 0;
   margin-right: 10px;

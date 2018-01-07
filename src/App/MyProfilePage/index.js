@@ -9,7 +9,7 @@ import './myProfilePage.css';
 class MyProfilePage extends Component {
   render() {
     const newUser = this.props.newUser;
-    const allergies = [ 'Gluten', 'Vegetarianer', 'Pesketarianer', 'YES' ]
+    const allergies = [] // [ 'Gluten', 'Vegetarianer', 'Pesketarianer', 'YES' ]
     const saveButton = <button className='save-button'> Lagre innstillinger </button>;
 
     return (

@@ -61,7 +61,7 @@ class AllergyInputField extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'Legg til allergi..',
+      placeholder: 'Legg til spesielle diettbehov..',
       value,
       onChange: this.onChange
     };
