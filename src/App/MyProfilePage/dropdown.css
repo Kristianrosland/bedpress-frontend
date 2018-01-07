@@ -38,6 +38,7 @@
 .is-open .Dropdown-arrow {
   border-color: transparent transparent #999;
   border-width: 0 5px 5px;
+  background-color: white;
 }
 
 .Dropdown-menu {
@@ -76,12 +77,12 @@
 }
 
 .Dropdown-option:hover {
-  background-color: #f2f9fc;
+  background-color: rgba(51,73,92,0.2);
   color: #333;
 }
 
 .Dropdown-option.is-selected {
-  background-color: #f2f9fc;
+  background-color: rgba(51,73,92,0.2);
   color: #333;
 }
 
