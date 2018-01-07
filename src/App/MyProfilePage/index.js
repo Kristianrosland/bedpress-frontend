@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AllergyInputField from './AllergyInputField';
 import StudyProgramDropdown from './StudyProgramDropdown';
+import YearDropdown from './YearDropdown';
 import './myProfilePage.css';
 
 class MyProfilePage extends Component {
@@ -11,6 +12,7 @@ class MyProfilePage extends Component {
     return (
       <div className="container">
         <StudyProgramDropdown />
+        <YearDropdown />
         <AllergyInputField />
         { newUser }
       </div>
