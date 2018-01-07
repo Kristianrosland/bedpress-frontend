@@ -103,3 +103,19 @@ export function fetchFail() {
     type: Actions.FETCH_FAIL,
   }
 }
+
+export function receivedUserInfo(userInfo) {
+  return {
+    type: Actions.FETCH_USER_SUCCESS,
+    userInfo: userInfo,
+  }
+}
+
+export function updateAllergies(allergies, uid) {
+  return function(dispatch) {
+    db.collection("users").doc(uid).update(
+      { allergies: allergies }
+    ).then( () => console.log("Allergies updated with ", allergies)
+    ).catch( error => console.log("Error updating allergies, ", allergies));
+  }
+}

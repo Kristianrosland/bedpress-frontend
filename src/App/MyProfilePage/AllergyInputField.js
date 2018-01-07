@@ -56,14 +56,25 @@ class AllergyInputField extends Component {
     return <div className={cls}> {suggestion.name} </div>;
   };
 
+
   render() {
     const { value, suggestions } = this.state;
 
+    const onKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        const allergyExists = this.props.currentAllergies.indexOf(this.state.value) > -1;
+        if (this.state.value.length > 2 && !allergyExists) {
+            this.props.onEnter(this.state.value)
+            this.setState({ value: '' })
+        }
+      }
+    }
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: 'Legg til spesielle diettbehov..',
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
+      onKeyPress: onKeyPress,
     };
 
     // Finally, render it!

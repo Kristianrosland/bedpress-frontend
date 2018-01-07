@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
+/* import { Redirect } from 'react-router'; */
 import firebase from 'firebase';
-import { fetchUser } from '../../actions';
+import { fetchUser, updateAllergies, receivedUserInfo } from '../../actions';
 import AllergyInputField from './AllergyInputField';
 import StudyProgramDropdown from './StudyProgramDropdown';
 import YearDropdown from './YearDropdown';
 import AllergyTags from './AllergyTags';
 import { BarLoader } from 'react-spinners';
+import { db } from '../../utils/firebase'
 import './myProfilePage.css';
 
 class MyProfilePage extends Component {
@@ -20,6 +21,10 @@ class MyProfilePage extends Component {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
           this.props.fetchUser(user);
+          db.collection("users").doc(user.uid)
+            .onSnapshot(doc => {
+              this.props.receivedUserInfo(doc.data())
+            });
         } else {
           this.props.authFail();
         }
@@ -30,13 +35,17 @@ class MyProfilePage extends Component {
     if (!this.props.userInfo) {
       return <div className='outer-container'><BarLoader /></div>
     }
+
     const name = this.props.userInfo.name;
     const email = this.props.userInfo.email;
     const program = this.state.program ? this.state.program : this.props.userInfo.studyProgram;
     const year = this.state.year ? this.state.year : this.props.userInfo.year;
     const allergies = this.props.userInfo.allergies ? this.props.userInfo.allergies : [];
     const saveButton = <button className='save-button'> Lagre innstillinger </button>;
-
+    const uid = firebase.auth().currentUser
+       ? firebase.auth().currentUser.uid
+       : undefined;
+       
     return (
       <div className='outer-container'>
         <div className='container'>
@@ -52,7 +61,13 @@ class MyProfilePage extends Component {
             onChange={({ value }) => { this.setState({year: value}) }}
             disabled={false}
           />
-          <AllergyInputField />
+          <AllergyInputField
+            onEnter={(allergy) => {
+              allergies.push(allergy);
+              this.props.addAllergy(allergies, uid);
+            }}
+            currentAllergies={allergies}
+          />
           <AllergyTags allergies={allergies}/>
           { saveButton }
         </div>
@@ -64,6 +79,8 @@ class MyProfilePage extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: user => dispatch(fetchUser(user)),
+    receivedUserInfo: user => dispatch(receivedUserInfo(user)),
+    addAllergy: (allergies, uid) => dispatch(updateAllergies(allergies, uid)),
   }
 }
 
