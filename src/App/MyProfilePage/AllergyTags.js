@@ -6,12 +6,10 @@ class AllergyTags extends Component {
 
   render() {
     const renderAllergyTag = allergy => {
-      const cross = <FontAwesome
-          className='tag-remove-icon'
-          name='times'
-        />
+      const cross = <FontAwesome className='tag-remove-icon' name='times' />
       return (
-        <div className='allergy-tag' key={allergy}>
+        <div className='allergy-tag' key={allergy}
+          onClick={ () => this.props.removeAllergy(allergy) }>
           { allergy }
           { cross }
         </div>

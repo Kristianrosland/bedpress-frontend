@@ -32,7 +32,7 @@ class MyProfilePage extends Component {
   }
 
   render() {
-    if (!this.props.userInfo) {
+    if (!this.props.userInfo || !firebase.auth().currentUser) {
       return <div className='outer-container'><BarLoader /></div>
     }
 
@@ -42,10 +42,8 @@ class MyProfilePage extends Component {
     const year = this.state.year ? this.state.year : this.props.userInfo.year;
     const allergies = this.props.userInfo.allergies ? this.props.userInfo.allergies : [];
     const saveButton = <button className='save-button'> Lagre innstillinger </button>;
-    const uid = firebase.auth().currentUser
-       ? firebase.auth().currentUser.uid
-       : undefined;
-       
+    const uid = firebase.auth().currentUser.uid
+
     return (
       <div className='outer-container'>
         <div className='container'>
@@ -64,11 +62,17 @@ class MyProfilePage extends Component {
           <AllergyInputField
             onEnter={(allergy) => {
               allergies.push(allergy);
-              this.props.addAllergy(allergies, uid);
+              this.props.updateAllergies(allergies, uid);
             }}
             currentAllergies={allergies}
           />
-          <AllergyTags allergies={allergies}/>
+          <AllergyTags
+            allergies={allergies}
+            removeAllergy={(allergy) => {
+              const newAllergies = allergies.filter(a => a !== allergy);
+              this.props.updateAllergies(newAllergies, uid);
+            }}
+          />
           { saveButton }
         </div>
       </div>
@@ -80,7 +84,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUser: user => dispatch(fetchUser(user)),
     receivedUserInfo: user => dispatch(receivedUserInfo(user)),
-    addAllergy: (allergies, uid) => dispatch(updateAllergies(allergies, uid)),
+    updateAllergies: (allergies, uid) => dispatch(updateAllergies(allergies, uid)),
   }
 }
 
