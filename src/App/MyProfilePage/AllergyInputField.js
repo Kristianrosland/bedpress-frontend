@@ -33,10 +33,17 @@ class AllergyInputField extends Component {
     };
   }
 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    });
+  onChange = (event, { newValue, method }) => {
+    if (method === 'click') {
+      if (this.isValid(newValue)) {
+        this.props.onEnter(newValue)
+      }
+      this.setState({ value: '' })
+    } else {
+      this.setState({
+        value: newValue
+      });
+    }
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -56,16 +63,24 @@ class AllergyInputField extends Component {
     return <div className={cls}> {suggestion.name} </div>;
   };
 
+  isValid = (allergy) => {
+    return this.props.currentAllergies
+      .filter(a => a.toLowerCase() === allergy.toLowerCase())
+      .length === 0;
+  }
 
   render() {
     const { value, suggestions } = this.state;
 
     const onKeyPress = (event) => {
       if (event.key === 'Enter') {
-        const allergyExists = this.props.currentAllergies.indexOf(this.state.value) > -1;
-        if (this.state.value.length > 2 && !allergyExists) {
-            this.props.onEnter(this.state.value)
-            this.setState({ value: '' })
+        const allergy = this.state.value.trim();
+        const isValid = this.isValid(allergy)
+        if (allergy.length > 2 && isValid) {
+          this.props.onEnter(allergy)
+          this.setState({ value: '' })
+        } else if (allergy.length > 2) {
+          this.setState({ value: '' });
         }
       }
     }

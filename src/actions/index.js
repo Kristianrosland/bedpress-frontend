@@ -34,7 +34,7 @@ export function fetchUser(user) {
 export function newUserSignIn(user) {
   return function(dispatch) {
     const userInfo = {
-      name: user.displaName,
+      name: user.displayName,
       email: user.email,
     };
     dispatch(newUser(userInfo));

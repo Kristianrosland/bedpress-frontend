@@ -22,7 +22,9 @@ class MyProfilePage extends Component {
         if (user) {
           this.props.fetchUser(user);
           db.collection("users").doc(user.uid).onSnapshot(doc => {
-            this.props.receivedUserInfo(doc.data())
+            if (doc.exists) {
+              this.props.receivedUserInfo(doc.data())
+            }
           });
         } else {
           this.props.authFail();
@@ -62,11 +64,11 @@ class MyProfilePage extends Component {
           <StudyProgramDropdown
             currentProgram={program}
             onChange={({ value }) => { this.setState({program: value}) }}
-            disabled={true}
+            disabled={false}
           />
           <YearDropdown
             currentYear={year}
-            onChange={({ value }) => { this.setState({year: value}) }}
+            onChange={({ value }) => { this.setState({year: value }) }}
             disabled={false}
           />
           <AllergyInputField

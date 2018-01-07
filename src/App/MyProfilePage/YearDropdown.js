@@ -5,13 +5,21 @@ import './dropdown.css';
 class YearDropdown extends Component {
   render() {
     const options = [
-      '1. årsstudent', '2. årsstudent', '3. årsstudent', '4. årsstudent', '5. årsstudent'
+      { value: 1, label: '1. årsstudent'},
+      { value: 2, label: '2. årsstudent'},
+      { value: 3, label: '3. årsstudent'},
+      { value: 4, label: '4. årsstudent'},
+      { value: 5, label: '5. årsstudent'},
     ]
+
+    const year = this.props.currentYear
+      ? { value: this.props.currentYear, label: `${this.props.currentYear}. årsstudent`}
+      : null;
 
     return (
       <Dropdown
         options={options}
-        value={this.props.currentYear}
+        value={year}
         onChange={this.props.onChange}
         placeholder="Velg årstrinn" />
     );

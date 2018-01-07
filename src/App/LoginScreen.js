@@ -26,7 +26,7 @@ class LoginScreen extends Component {
     };
 
     const redirect = this.props.newUser ? <Redirect to='/myProfile' /> : <Redirect to='/'/>;
-    const authComponent = !this.props.newUser && !this.props.user
+    const authComponent = !this.props.newUser && !this.props.userFetched
       ? <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
       : redirect;
 
@@ -46,8 +46,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user,
     newUser: state.auth.newUserSignIn,
+    userFetched: state.auth.userFetched,
   }
 }
 
