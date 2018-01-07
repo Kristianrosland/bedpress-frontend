@@ -11,6 +11,11 @@ import { BarLoader } from 'react-spinners';
 import './myProfilePage.css';
 
 class MyProfilePage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -25,11 +30,10 @@ class MyProfilePage extends Component {
     if (!this.props.userInfo) {
       return <div className='outer-container'><BarLoader /></div>
     }
-    const newUser = this.props.newUser;
     const name = this.props.userInfo.name;
     const email = this.props.userInfo.email;
-    const program = this.props.userInfo.studyProgram;
-    const year = this.props.userInfo.year;
+    const program = this.state.program ? this.state.program : this.props.userInfo.studyProgram;
+    const year = this.state.year ? this.state.year : this.props.userInfo.year;
     const allergies = this.props.userInfo.allergies ? this.props.userInfo.allergies : [];
     const saveButton = <button className='save-button'> Lagre innstillinger </button>;
 
@@ -38,8 +42,16 @@ class MyProfilePage extends Component {
         <div className='container'>
           <div className='display-name'> { name } </div>
           <div className='email'> { email } </div>
-          <StudyProgramDropdown currentProgram={program} />
-          <YearDropdown currentYear={year} />
+          <StudyProgramDropdown
+            currentProgram={program}
+            onChange={({ value }) => { this.setState({program: value}) }}
+            disabled={true}
+          />
+          <YearDropdown
+            currentYear={year}
+            onChange={({ value }) => { this.setState({year: value}) }}
+            disabled={false}
+          />
           <AllergyInputField />
           <AllergyTags allergies={allergies}/>
           { saveButton }

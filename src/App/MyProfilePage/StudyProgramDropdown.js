@@ -9,7 +9,12 @@ class StudyProgramDropdown extends Component {
     ]
 
     return (
-      <Dropdown options={options} placeholder="Velg studieprogram" />
+      <Dropdown
+        options={options}
+        value={this.props.currentProgram}
+        onChange={this.props.onChange}
+        placeholder="Velg studieprogram"
+        disabled={this.props.disabled}/>
     );
   }
 }

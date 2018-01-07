@@ -9,7 +9,11 @@ class YearDropdown extends Component {
     ]
 
     return (
-      <Dropdown options={options} placeholder="Velg årstrinn" />
+      <Dropdown
+        options={options}
+        value={this.props.currentYear}
+        onChange={this.props.onChange}
+        placeholder="Velg årstrinn" />
     );
   }
 }
