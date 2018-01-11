@@ -9,9 +9,8 @@ class EventCard extends Component {
     const event = this.props.event;
     const Card = withRouter(({ history }) => (
       <div className='card-wrapper' onClick={() => history.push(`/event/${event.id}`)}>
-        <p>{event.name}</p>
-        <p>{event.company}</p>
-        <p>{event.seats}</p>
+        <p>{event.title}</p>
+        <p>{event.capacity}</p>
       </div>
     ));
 
