@@ -7,7 +7,6 @@ import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
-import SingleEventPage from './SingleEventPage';
 import MyProfilePage from './MyProfilePage';
 import './App.css';
 
@@ -29,7 +28,6 @@ class App extends Component {
         <div className='content-wrapper'>
           <Route path="/login" component={ LoginScreen} />
           <Route exact path="/" component={ Main } />
-          <Route path="/event/:id?" component={ SingleEventPage } />
           <Route path="/myProfile" component={ MyProfilePage } />
         </div>
         <Footer/>
