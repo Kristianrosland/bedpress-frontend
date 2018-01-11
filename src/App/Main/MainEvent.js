@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { formatDate } from '../../utils/utils';
 
 class MainEvent extends Component {
   render() {
     // TODO: Move to utils class
-    const registration_start = this.props.registration_start.getDate() + '-' + this.props.registration_start.getMonth() + '-' + this.props.registration_start.getYear();
+    const registration_start = formatDate(this.props.registration_start);
     return (
       <div>
         <p>{this.props.title}</p>
