@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 import { fetchEvents } from '../../actions';
 import EventCard from './EventCard';
+import MainEvent from './MainEvent';
 import './Main.css';
 
 class Main extends Component {
@@ -16,11 +17,17 @@ class Main extends Component {
       ? this.props.events.map(e => <EventCard key={e.company} event={e} />)
       : null;
 
+    // TODO: Change to closest event
+    const mainEvent = this.props.events
+      ? <MainEvent event={this.props.events[0]}/>
+      : undefined;
+
     return (
       <div>
         <div className='spinner'>
           <BarLoader loading={ this.props.isFetching } />
         </div>
+        { mainEvent }
         { eventList }
       </div>
     );
