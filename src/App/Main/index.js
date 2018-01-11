@@ -19,7 +19,7 @@ class Main extends Component {
 
     // TODO: Change to closest event
     const mainEvent = this.props.events
-      ? <MainEvent event={this.props.events[0]}/>
+      ? <MainEvent {...this.props.events[0]}/>
       : undefined;
 
     return (

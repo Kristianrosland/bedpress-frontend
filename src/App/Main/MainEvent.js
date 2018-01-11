@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 
 class MainEvent extends Component {
   render() {
-    const event = this.props.event;
     return (
       <div>
-        <p>{event.name}</p>
-        <p>{event.company}</p>
-        <p>{event.seats}</p>
-        <p>{event.participants.length}</p>
+        <p>{this.props.name}</p>
+        <p>{this.props.company}</p>
+        <p>{this.props.seats}</p>
+        <p>{this.props.participants.length}</p>
       </div>
     );
   }
@@ -21,12 +20,10 @@ MainEvent.propTypes = {
 };
 
 MainEvent.defaultProps = {
-  event: {
-    name: 'Ingen',
-    company: 'Ingen',
-    seats: -1,
-    participants: []
-  }
+  name: 'Ingen',
+  company: 'Ingen',
+  seats: -1,
+  participants: []
 };
 
 export default MainEvent;
