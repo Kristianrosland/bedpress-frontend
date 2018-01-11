@@ -16,7 +16,10 @@ class MainEvent extends Component {
 }
 
 MainEvent.propTypes = {
-  event: PropTypes.any.isRequired,
+  name: PropTypes.string,
+  company: PropTypes.string,
+  seats: PropTypes.number,
+  participants: PropTypes.array
 };
 
 MainEvent.defaultProps = {
