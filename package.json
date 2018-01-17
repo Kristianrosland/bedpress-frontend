@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
     "firebase": "^4.8.1",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.2",

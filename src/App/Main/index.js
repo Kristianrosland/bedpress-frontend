@@ -13,7 +13,7 @@ class Main extends Component {
 
   render() {
     const eventList = this.props.events
-      ? this.props.events.map(e => <EventCard key={e.company} event={e} />)
+      ? this.props.events.map(e => <EventCard key={e.title} event={e} />)
       : null;
 
     return (
