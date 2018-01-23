@@ -1,9 +1,10 @@
 import { Actions } from '../utils/constants';
 import { db } from '../utils/firebase';
 
-export function authSuccess() {
+export function authSuccess(idToken) {
   return {
     type: Actions.AUTH_SUCCESS,
+    idToken: idToken,
   }
 }
 
@@ -127,5 +128,57 @@ export function updateProgramAndYear(program, year, uid) {
       studyProgram: program,
     }).then( () => console.log("Updated program and year", program, year))
     .catch( error => console.log("Error updating program and year"));
+  }
+}
+
+export function signUpForEvent(eventId, idToken) {
+  if (idToken === undefined) {
+    return signUpForEventFail("Id-token is not defined");
+  }
+  return function(dispatch) {
+    dispatch(signUpForEventStart());
+    fetch('https://us-central1-bedpress-backend.cloudfunctions.net/app/signUpForEvent', {
+      method: 'POST',
+      mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + idToken,
+        'mode': 'cors',
+      }),
+      body: JSON.stringify({ event_id: eventId }),
+    })
+    .then(response => {
+      if(!response.ok) {
+        response.text().then(message =>
+          dispatch(signUpForEventFail(message))
+        )
+      } else {
+        response.text().then(error =>
+          dispatch(signUpForEventSuccess(error))
+        )
+      }
+    }).catch(error => {
+      dispatch(signUpForEventFail(error));
+    })
+  }
+}
+
+export function signUpForEventStart() {
+  return {
+    type: Actions.SIGN_UP_FOR_EVENT,
+  }
+}
+
+export function signUpForEventFail(error) {
+  return {
+    type: Actions.SIGN_UP_FOR_EVENT_FAIL,
+    error: error
+  }
+}
+
+export function signUpForEventSuccess(message) {
+  return {
+    type: Actions.SIGN_UP_FOR_EVENT_SUCCESS,
+    successMessage: message,
   }
 }

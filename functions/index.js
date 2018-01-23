@@ -4,14 +4,14 @@ admin.initializeApp(functions.config().firebase);
 
 const express = require('express');
 const cookieParser = require('cookie-parser')();
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
 const validateFirebaseIdToken = (req, res, next) => {
   if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&
       !req.cookies.__session) {
-    res.status(403).send('Unauthorized motherfucker');
+    res.status(403).send('Unauthorized');
     return;
   }
 
@@ -26,17 +26,17 @@ const validateFirebaseIdToken = (req, res, next) => {
     req.user = decodedIdToken;
     next();
   }).catch(error => {
-    res.status(403).send('Unauthorized motherfucker');
+    res.status(403).send('Unauthorized');
   });
 };
 
-/* ----------------MIDDLEWARE---------------------*/
+/* ----------------MIDDLEWARE--------------------- */
 app.use(cookieParser);
 app.use(cors({ origin: true }));
 app.use(validateFirebaseIdToken);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-/* -----------------------------------------------*/
+/* ----------------------------------------------- */
 
 app.post('/signUpForEvent', (req, res) => {
   if (!req.body.event_id) { res.status(403).send("Missing event id"); }
@@ -45,27 +45,27 @@ app.post('/signUpForEvent', (req, res) => {
   const user_id = req.user.uid;
 
   admin.firestore().collection("presentations").doc(event_id).get().then(doc => {
-      if (!doc.exists) { res.status(200).send('Invalid event id, ' + event_id); }
-      const participants = doc.data().participants ? doc.data().participants : [];
-      const capacity = doc.data().capacity;
+    if (!doc.exists) { res.status(400).send('Invalid event id, ' + event_id); }
+    const participants = doc.data().participants ? doc.data().participants : [];
+    const capacity = doc.data().capacity;
 
-      if (participants.indexOf(user_id) > -1) {
-        res.status(200).send('User is already signed up for event ' + event_id);
-      } else if (participants.length >= capacity) {
-        res.status(200).send('Event is full, capacity: ' + capacity);
-      }
-      else {
-        participants.push(user_id);
-        admin.firestore().collection('presentations').doc(event_id).update({
-          participants: participants,
-        }).then(() => {
-          res.status(200).send('User ' + user_id + ' added to event ' + event_id)
-        }).catch( error => {
-          res.status(505).send('Error updating participants, ' + error);
-        });
-      }
+    if (participants.indexOf(user_id) > -1) {
+      res.status(400).send('User is already signed up for event ' + event_id);
+    } else if (participants.length >= capacity) {
+      res.status(400).send('Event is full, capacity: ' + capacity);
+    }
+    else {
+      participants.push(user_id);
+      admin.firestore().collection('presentations').doc(event_id).update({
+        participants: participants,
+      }).then(() => {
+        res.status(200).send('User ' + user_id + ' added to event ' + event_id)
+      }).catch(error => {
+        res.status(505).send('Error updating participants, ' + error);
+      });
+    }
   }).catch(function(error) {
-      res.status(505).send('Error fetching event with id ' + event_id);
+    res.status(505).send('Error fetching event with id ' + event_id);
   });
 });
 

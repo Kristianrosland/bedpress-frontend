@@ -14,7 +14,9 @@ class App extends Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          this.props.authSuccess();
+          user.getIdToken().then((idToken) => {
+            this.props.authSuccess(idToken);
+          })
         } else {
           this.props.authFail();
         }
@@ -38,7 +40,7 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    authSuccess: () => dispatch(authSuccess()),
+    authSuccess: idToken => dispatch(authSuccess(idToken)),
     authFail: () => dispatch(authFail())
   }
 }

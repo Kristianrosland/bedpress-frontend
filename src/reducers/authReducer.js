@@ -5,6 +5,7 @@ const initialState = {
   loadingUser: true,
   newUserSignIn: false,
   userFetched: false,
+  idToken: undefined,
 }
 
 export default function authReducer(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function authReducer(state = initialState, action) {
     case Actions.AUTH_SUCCESS:
       return {
         ...state,
+        idToken: action.idToken,
         isAuthenticated: true,
         loadingUser: false,
       };
