@@ -139,7 +139,6 @@ export function signUpForEvent(eventId, idToken) {
     dispatch(signUpForEventStart());
     fetch('https://us-central1-bedpress-backend.cloudfunctions.net/app/signUpForEvent', {
       method: 'POST',
-      mode: 'cors',
       headers: new Headers({
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + idToken,
