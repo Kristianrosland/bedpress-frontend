@@ -44,28 +44,40 @@ app.post('/signUpForEvent', (req, res) => {
   const event_id = req.body.event_id;
   const user_id = req.user.uid;
 
-  admin.firestore().collection("presentations").doc(event_id).get().then(doc => {
-    if (!doc.exists) { res.status(400).send('Invalid event id, ' + event_id); }
-    const participants = doc.data().participants ? doc.data().participants : [];
-    const capacity = doc.data().capacity;
+  const presentationRef = admin.firestore().collection("presentations").doc(event_id);
+  return admin.firestore().runTransaction(transaction => {
+    return transaction.get(presentationRef).then(doc => {
+      if (!doc.exists) {
+        res.status(400).send('Event does not exist, id: ' + event_id);
+      }
+      const participants = doc.data().participants ? doc.data().participants : [];
+      const capacity = doc.data().capacity ? doc.data().capacity : 0;
+      const regStartTime = doc.data().registration_start;
+      const currentTime = Date.now();
 
-    if (participants.indexOf(user_id) > -1) {
-      res.status(400).send('User is already signed up for event ' + event_id);
-    } else if (participants.length >= capacity) {
-      res.status(400).send('Event is full, capacity: ' + capacity);
-    }
-    else {
-      participants.push(user_id);
-      admin.firestore().collection('presentations').doc(event_id).update({
-        participants: participants,
-      }).then(() => {
-        res.status(200).send('User ' + user_id + ' added to event ' + event_id)
-      }).catch(error => {
-        res.status(505).send('Error updating participants, ' + error);
-      });
-    }
-  }).catch(function(error) {
-    res.status(505).send('Error fetching event with id ' + event_id);
+      console.log("RegStartTime: " + regStartTime)
+      console.log("CurrenTime: " + currentTime)
+
+      if (regStartTime && currentTime < regStartTime) {
+        res.status(400).send('Registration has not started for event ' + event_id);
+      }
+      else if (participants.indexOf(user_id) > -1) {
+        res.status(400).send('User is already signed up for event ' + event_id);
+      } else if (participants.length >= capacity) {
+        res.status(400).send('Event is full, capacity: ' + capacity);
+      } else {
+        participants.push(user_id);
+        transaction.update(presentationRef, { participants: participants });
+        res.status(200).send('User ' + user_id + ' added to event ' + event_id);
+      }
+    })
+  })
+  .then(() => {
+    console.log("Transaction successful");
+  })
+  .catch(error => {
+    console.log('Error signing up to event with id ' + event_id + ".\n" + error);
+    res.status(500).send('Error signing up to event with id ' + event_id + '\n' + error);
   });
 });
 
