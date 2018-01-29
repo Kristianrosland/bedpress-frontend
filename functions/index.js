@@ -55,13 +55,9 @@ app.post('/signUpForEvent', (req, res) => {
       const regStartTime = doc.data().registration_start;
       const currentTime = Date.now();
 
-      console.log("RegStartTime: " + regStartTime)
-      console.log("CurrenTime: " + currentTime)
-
       if (regStartTime && currentTime < regStartTime) {
         res.status(400).send('Registration has not started for event ' + event_id);
-      }
-      else if (participants.indexOf(user_id) > -1) {
+      } else if (participants.indexOf(user_id) > -1) {
         res.status(400).send('User is already signed up for event ' + event_id);
       } else if (participants.length >= capacity) {
         res.status(400).send('Event is full, capacity: ' + capacity);
